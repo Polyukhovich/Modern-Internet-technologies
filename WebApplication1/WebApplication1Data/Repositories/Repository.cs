@@ -30,11 +30,27 @@ namespace WebApplication1Data.Repositories
         {
             await _dbSet.AddAsync(entity);
         }
-
-        public void Update(T entity)
+        public async Task<int> UpdateAsync(T item)
         {
-            _dbSet.Update(entity);
+            
+            var local = _dbSet.Local.FirstOrDefault(entry => entry == item);
+
+            if (local != null)
+            {
+                
+                _context.Entry(local).State = EntityState.Detached;
+            }
+
+            
+            _context.Entry(item).State = EntityState.Modified;
+
+            
+            _dbSet.Update(item);
+
+            
+            return await _context.SaveChangesAsync();
         }
+
 
         public void Delete(T entity)
         {

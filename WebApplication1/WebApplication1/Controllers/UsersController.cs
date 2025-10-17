@@ -14,14 +14,14 @@ public class UsersController : Controller
         _userRepository = userRepository;
     }
 
-    // 🔹 Отримати всіх користувачів (метод Index)
+    //  Отримати всіх користувачів (метод Index)
     public async Task<IActionResult> Index()
     {
         var users = await _userRepository.GetAllAsync();
         return View(users);
     }
 
-    // 🔹 Пошук користувача за email
+    // Пошук користувача за email
     public async Task<IActionResult> Details(string email)
     {
         if (string.IsNullOrEmpty(email))
@@ -34,7 +34,7 @@ public class UsersController : Controller
         return View(user);
     }
 
-    // 🔹 Приклад перевірки існування користувача
+    //Приклад перевірки існування користувача
     public async Task<IActionResult> CheckEmail(string email)
     {
         bool exists = await _userRepository.ExistsAsync(u => u.Email == email);

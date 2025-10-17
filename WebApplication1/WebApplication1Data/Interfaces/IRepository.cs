@@ -14,7 +14,7 @@ namespace WebApplication1Data.Repositories
         Task<T?> GetByIdAsync(int id); // Отримати запис за ідентифікатором
         Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate); // Знайти за умовою
         Task AddAsync(T entity); // Додати сутність
-        void Update(T entity); // Оновити сутність
+        Task<int> UpdateAsync(T entity); // Оновити сутність
         void Delete(T entity); // Видалити сутність
         Task SaveChangesAsync(); // Зберегти зміни
         
