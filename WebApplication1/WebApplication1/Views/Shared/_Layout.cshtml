@@ -39,9 +39,23 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-md-6">
+                    &copy; 2025 - @(ViewBag.AppName ?? "WebApplication1") -
+                    <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+                <div class="col-md-6 text-end">
+                    <small>
+                        <strong>Configuration:</strong><br />
+
+                        Theme: @(ViewBag.Theme ?? "Default") |
+                        Default Role: @(ViewBag.DefaultRole ?? "N/A") |
+                    </small>
+                </div>
+            </div>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

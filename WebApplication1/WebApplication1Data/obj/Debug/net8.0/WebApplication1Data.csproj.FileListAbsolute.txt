@@ -13,3 +13,33 @@ D:\university\4 курс\Сучасні інтернет технології\la
 D:\university\4 курс\Сучасні інтернет технології\lab1\WebApplication1\WebApplication1Data\bin\Debug\net8.0\WebApplication1Data.runtimeconfig.json
 D:\university\4 курс\Сучасні інтернет технології\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.genruntimeconfig.cache
 D:\university\4 курс\Сучасні інтернет технології\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.sourcelink.json
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\bin\Debug\net8.0\WebApplication1Data.deps.json
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\bin\Debug\net8.0\WebApplication1Data.runtimeconfig.json
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\bin\Debug\net8.0\WebApplication1Data.dll
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\bin\Debug\net8.0\WebApplication1Data.pdb
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.csproj.AssemblyReference.cache
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.AssemblyInfoInputs.cache
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.AssemblyInfo.cs
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.csproj.CoreCompileInputs.cache
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.sourcelink.json
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.dll
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\refint\WebApplication1Data.dll
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.pdb
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.genruntimeconfig.cache
+C:\Users\Dell\Desktop\projecr2\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\ref\WebApplication1Data.dll
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\bin\Debug\net8.0\WebApplication1Data.deps.json
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\bin\Debug\net8.0\WebApplication1Data.runtimeconfig.json
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\bin\Debug\net8.0\WebApplication1Data.dll
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\bin\Debug\net8.0\WebApplication1Data.pdb
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.csproj.AssemblyReference.cache
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.AssemblyInfoInputs.cache
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.AssemblyInfo.cs
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.csproj.CoreCompileInputs.cache
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.sourcelink.json
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.dll
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\refint\WebApplication1Data.dll
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.pdb
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\WebApplication1Data.genruntimeconfig.cache
+C:\Users\kingg\OneDrive\Рабочий стол\lab1\WebApplication1\WebApplication1Data\obj\Debug\net8.0\ref\WebApplication1Data.dll

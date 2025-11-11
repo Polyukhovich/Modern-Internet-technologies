@@ -1,8 +1,41 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Student Diary";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<link rel="stylesheet" href="~/css/entity-linking.css" />
+
+<div class="container">
+    <h1 class="title">Student Diary</h1>
+
+    <div class="results-section">
+        <div class="entity-card">
+            <div class="entity-name">Students</div>
+            <p>View and manage all students.</p>
+            <a class="wiki-link" asp-controller="Student" asp-action="Index">Go to Students &rarr;</a>
+        </div>
+
+        <div class="entity-card">
+            <div class="entity-name">Courses</div>
+            <p>View and manage courses and subjects.</p>
+            <a class="wiki-link" asp-controller="Course" asp-action="Index">Go to Courses &rarr;</a>
+        </div>
+
+        <div class="entity-card">
+            <div class="entity-name">Grades</div>
+            <p>Check and add student grades.</p>
+            <a class="wiki-link" asp-controller="Grade" asp-action="Index">Go to Grades &rarr;</a>
+        </div>
+
+        <div class="entity-card">
+            <div class="entity-name">Materials</div>
+            <p>Upload and view learning materials.</p>
+            <a class="wiki-link" asp-controller="Material" asp-action="Index">Go to Materials &rarr;</a>
+        </div>
+
+        <div class="entity-card">
+            <div class="entity-name">Schedule</div>
+            <p>View timetable and schedule.</p>
+            <a class="wiki-link" asp-controller="ScheduleItem" asp-action="Index">Go to Schedule &rarr;</a>
+        </div>
+    </div>
 </div>
