@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Преміум доступ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">⭐ Преміум доступ</h1>
+
+    <div class="input-section">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Ексклюзивний контент</h2>
+
+        <div style="text-align: center; margin-bottom: 2rem; padding: 2rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white;">
+            <h3 style="margin-bottom: 1rem;">🎉 Вітаємо з преміум-доступом!</h3>
+            <p style="font-size: 1.2rem; margin-bottom: 0;">Ви накопичили <strong>@ViewBag.WorkingHours</strong> робочих годин</p>
+        </div>
+
+        <div class="results-section">
+            <div class="entity-card">
+                <div class="entity-name">📊 Розширена аналітика</div>
+                <div style="padding: 1rem;">
+                    <ul style="text-align: left; color: var(--secondary);">
+                        <li>Детальна статистика успішності</li>
+                        <li>Прогнозування результатів</li>
+                        <li>Персональні рекомендації</li>
+                        <li>Порівняльний аналіз</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="entity-card">
+                <div class="entity-name">🎓 Ексклюзивні курси</div>
+                <div style="padding: 1rem;">
+                    <ul style="text-align: left; color: var(--secondary);">
+                        <li>Поглиблені матеріали</li>
+                        <li>Майстер-класи від експертів</li>
+                        <li>Закриті вебінари</li>
+                        <li>Додаткові практичні завдання</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="entity-card">
+                <div class="entity-name">🚀 Персональна підтримка</div>
+                <div style="padding: 1rem;">
+                    <ul style="text-align: left; color: var(--secondary);">
+                        <li>Індивідуальні консультації</li>
+                        <li>Швидка технічна підтримка</li>
+                        <li>Персональний куратор</li>
+                        <li>Пріоритетне обслуговування</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+            <a href="@Url.Action("ExclusiveContent")" class="analyze-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                📚 Ексклюзивний контент
+            </a>
+            <a href="@Url.Action("AdvancedFeatures")" class="analyze-btn" style="text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 0.5rem; background: linear-gradient(135deg, var(--secondary), #764ba2);">
+                ⚡ Розширені функції
+            </a>
+        </div>
+    </div>
+
+    <div style="margin-top: 2rem; padding: 1rem; background-color: #e8f5e8; border-radius: 8px; border-left: 4px solid #4CAF50;">
+        <p style="color: #2E7D32; margin: 0; font-weight: 500;">
+            ✅ Ви маєте преміум-доступ завдяки вашим <strong>@ViewBag.WorkingHours</strong> робочим годинам
+        </p>
+    </div>
+</div>

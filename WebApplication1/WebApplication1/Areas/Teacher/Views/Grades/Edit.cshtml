@@ -1,0 +1,115 @@
+﻿@model WebApplication1Data.models.Grade
+@{
+    ViewData["Title"] = "Редагувати оцінку";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">✏️ Редагувати оцінку</h1>
+
+    <!-- Детальна діагностика -->
+    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+        <h4>🔍 ДЕТАЛЬНА ДІАГНОСТИКА:</h4>
+        <div style="font-family: monospace;">
+            <p><strong>Model.CourseId:</strong> @Model.CourseId</p>
+            <p><strong>Model.StudentId:</strong> @Model.StudentId</p>
+            <p><strong>Model.Value:</strong> @Model.Value</p>
+
+            @if (ViewBag.CourseList != null)
+            {
+                <p><strong>CourseList items:</strong></p>
+                <ul>
+                    @foreach (var item in ViewBag.CourseList)
+                    {
+                        <li>Value: @item.Value, Text: @item.Text, Selected: @item.Selected</li>
+                    }
+                </ul>
+            }
+
+            @if (ViewBag.StudentList != null)
+            {
+                <p><strong>StudentList items:</strong></p>
+                <ul>
+                    @foreach (var item in ViewBag.StudentList)
+                    {
+                        <li>Value: @item.Value, Text: @item.Text, Selected: @item.Selected</li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+
+    <div class="input-section">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Редагування оцінки</h2>
+
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="TeacherId" />
+
+            <div class="results-section">
+                <div class="entity-card">
+                    <div class="entity-name">📊 Редагування оцінки</div>
+
+                    <div style="margin: 1rem 0;">
+                        <!-- Курс -->
+                        <div style="margin-bottom: 1rem;">
+                            <label asp-for="CourseId" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Курс *</label>
+                            <select asp-for="CourseId" name="CourseId" class="text-input" style="padding: 0.75rem;" required>
+                                <option value="">-- Оберіть курс --</option>
+                                @if (ViewBag.CourseList != null)
+                                {
+                                    foreach (var item in ViewBag.CourseList)
+                                    {
+                                        <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="CourseId" style="color: #FF6B6B; font-size: 0.9rem;"></span>
+                        </div>
+
+                        <!-- Студент -->
+                        <div style="margin-bottom: 1rem;">
+                            <label asp-for="StudentId" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Студент *</label>
+                            <select asp-for="StudentId" name="StudentId" class="text-input" style="padding: 0.75rem;" required>
+                                <option value="">-- Оберіть студента --</option>
+                                @if (ViewBag.StudentList != null)
+                                {
+                                    foreach (var item in ViewBag.StudentList)
+                                    {
+                                        <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+                                    }
+                                }
+                            </select>
+                            <span asp-validation-for="StudentId" style="color: #FF6B6B; font-size: 0.9rem;"></span>
+                        </div>
+
+                        <!-- Оцінка -->
+                        <div style="margin-bottom: 1rem;">
+                            <label asp-for="Value" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Оцінка *</label>
+                            <input asp-for="Value" name="Value" class="text-input" type="number" min="0" max="100" step="0.1" required />
+                            <span asp-validation-for="Value" style="color: #FF6B6B; font-size: 0.9rem;"></span>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+                        <button type="submit" class="analyze-btn" style="border: none; cursor: pointer; background: #28a745; color: white; padding: 0.75rem 1.5rem;">
+                            💾 Зберегти зміни
+                        </button>
+                        <a asp-action="Index" class="analyze-btn" style="background: var(--secondary); color: white; text-decoration: none; padding: 0.75rem 1.5rem;">
+                            ← Скасувати
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

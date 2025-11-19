@@ -1,8 +1,71 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Головна";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<link rel="stylesheet" href="~/css/entity-linking.css" />
+<div class="container">
+    <!-- Додано Hello World -->
+    <div style="text-align: center; margin-bottom: 2rem; padding: 1rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); border-radius: 10px;">
+        <h1 style="color: white; margin: 0; font-size: 2.5rem;">Hello World! 🌍</h1>
+        <p style="color: rgba(255,255,255,0.8); margin: 0.5rem 0 0 0; font-size: 1.2rem;">
+            Ласкаво просимо до нашої системи управління навчанням
+        </p>
+    </div>
+
+    @if (ViewBag.Role == "Student")
+    {
+        <h1 class="title">Головна панель студента</h1>
+
+        <div class="input-section">
+            <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Швидкий огляд</h2>
+
+            <div class="results-section">
+                <!-- Останні оцінки -->
+                <div class="entity-card">
+                    <div class="entity-name">📊 Останні оцінки</div>
+                    @if (ViewBag.RecentGrades != null && ViewBag.RecentGrades.Count > 0)
+                    {
+                        <!-- Контент для студента -->
+                    }
+                    else
+                    {
+                        <div class="no-results">Немає оцінок</div>
+                    }
+                </div>
+                <!-- Інший контент для студента -->
+            </div>
+        </div>
+    }
+    else if (ViewBag.Role == "Teacher")
+    {
+        <h1 class="title">Головна панель викладача</h1>
+
+        <div class="input-section">
+            <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Статистика та управління</h2>
+
+            <!-- Контент для викладача -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <div class="entity-card" style="background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white;">
+                    <div class="entity-name" style="color: white;">📊 Мої курси</div>
+                    <div style="font-size: 2.5rem; font-weight: bold; text-align: center;">@ViewBag.CoursesCount</div>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <!-- Останні оцінки викладача -->
+                <div class="entity-card">
+                    <div class="entity-name">🎯 Останні оцінки</div>
+                    @if (ViewBag.RecentGrades != null && ViewBag.RecentGrades.Count > 0)
+                    {
+                        <!-- Контент оцінок викладача -->
+                    }
+                    else
+                    {
+                        <div class="no-results">Ще не виставлено оцінок</div>
+                    }
+                </div>
+                <!-- Інший контент для викладача -->
+            </div>
+        </div>
+    }
 </div>

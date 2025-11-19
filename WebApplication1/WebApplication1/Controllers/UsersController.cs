@@ -8,7 +8,7 @@ public class UsersController : Controller
 {
     private readonly IUserRepository _userRepository;
 
-    // ✅ Інжектимо репозиторій через конструктор (Dependency Injection)
+    //  Інжектимо репозиторій через конструктор (Dependency Injection)
     public UsersController(IUserRepository userRepository)
     {
         _userRepository = userRepository;

@@ -1,0 +1,109 @@
+﻿@model WebApplication1Data.models.Grade
+@{
+    ViewData["Title"] = "Виставити оцінку";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+
+    <h1>📊 Виставити оцінку</h1>
+
+    <form asp-area="Teacher" asp-controller="Grades" asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
+        <!-- КУРС -->
+        <div style="margin-bottom: 1.5rem;">
+            <label asp-for="CourseId" class="entity-name" style="display: block; margin-bottom: 0.5rem;">Курс</label>
+            <select asp-for="CourseId" name="CourseId" id="CourseId" class="text-input" required>
+                <option value="">Оберіть групу</option>
+                @if (ViewBag.Courses != null)
+                {
+                    foreach (var course in ViewBag.Courses)
+                    {
+                        <option value="@course.Value">@course.Text</option>
+                    }
+                }
+            </select>
+            <span asp-validation-for="CourseId" style="color: #FF6B6B; font-size: 0.9rem;"></span>
+        </div>
+
+
+        <!-- ГРУПА -->
+        <div style="margin-bottom: 1.5rem;">
+            <label asp-for="GroupName" class="entity-name" style="display: block; margin-bottom: 0.5rem;">Група</label>
+            <select asp-for="GroupName" name="GroupName" id="groupSelect" class="text-input" required>
+                <option value="">Оберіть групу</option>
+                @foreach (var g in (SelectList)ViewBag.Groups)
+                {
+                    <option value="@g.Text">@g.Text</option>
+                }
+            </select>
+
+            <span asp-validation-for="GroupName" style="color: #FF6B6B; font-size: 0.9rem;"></span>
+        </div>
+
+        <!-- СТУДЕНТ -->
+        <div style="margin-bottom: 1.5rem;">
+            <label asp-for="StudentId" class="entity-name" style="display: block; margin-bottom: 0.5rem;"></label>
+            <select asp-for="StudentId" name="StudentId" class="text-input" id="studentSelect" disabled required>
+                <option value="">Спочатку оберіть групу</option>
+                @foreach (var student in (SelectList)ViewBag.Groups)
+                {
+                    <option value="@student.Text">@student.Text</option>
+                }
+            </select>
+            <span asp-validation-for="StudentId" style="color: #FF6B6B; font-size: 0.9rem;"></span>
+        </div>
+
+        <!-- ОЦІНКА -->
+        <div class="mb-3">
+            <label asp-for="Value" style="display: block; margin-bottom: 0.5rem;">Оцінка</label>
+            <input asp-for="Value" name="Value" type="number" min="0" max="100" class="text-input" />
+            <span asp-validation-for="Value" style="color: #FF6B6B; font-size: 0.9rem;"></span>
+        </div>
+
+        <div style="display:flex; gap:.5rem; margin-top:1rem;">
+            <button type="submit" class="analyze-btn">➕ Виставити оцінку</button>
+            <button href="/Teacher/Grades" class="analyze-btn">← Назад </button>
+        </div>
+        @if (Model != null)
+        {
+            <div class="alert alert-info mt-3">
+                <h5>Отримані дані моделі:</h5>
+                <p>CourseId: @Model.CourseId</p>
+                <p>GroupName: @Model.GroupName</p>
+                <p>StudentId: @Model.StudentId</p>
+                <p>Value: @Model.Value</p>
+            </div>
+        }
+
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('groupSelect').addEventListener('change', function () {
+            const groupName = this.value;
+            const studentSelect = document.getElementById('studentSelect');
+
+            studentSelect.innerHTML = '<option>Завантаження...</option>';
+            studentSelect.disabled = true;
+
+            fetch(`/Teacher/Grades/GetStudentsForGroup?groupName=${groupName}`)
+                .then(r => r.json())
+                .then(d => {
+                    studentSelect.innerHTML = '';
+
+                    if (d.success && d.students.length > 0) {
+                        studentSelect.innerHTML = '<option value="">Оберіть студента</option>';
+                        d.students.forEach(s => {
+                            studentSelect.innerHTML += `<option value="${s.id}">${s.name}</option>`;
+                        });
+                        studentSelect.disabled = false;
+                    } else {
+                        studentSelect.innerHTML = '<option value="">Немає студентів</option>';
+                    }
+                });
+        });
+    </script>
+}

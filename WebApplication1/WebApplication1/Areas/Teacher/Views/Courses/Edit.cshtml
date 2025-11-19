@@ -1,0 +1,152 @@
+﻿@model WebApplication1Data.models.Course
+
+@{
+    ViewData["Title"] = "Редагування курсу";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">✏️ Редагування курсу</h1>
+
+    <!-- Діагностика -->
+    <div class="entity-card" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+        <div class="entity-name">🔍 ДІАГНОСТИКА</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-family: monospace; font-size: 0.9rem;">
+            <div><strong>Model.Id:</strong> <span>@Model.Id</span></div>
+            <div><strong>Model.Title:</strong> <span>"@Model.Title"</span></div>
+            <div><strong>Model.Description:</strong> <span>"@Model.Description"</span></div>
+            <div><strong>Model.GroupName:</strong> <span>"@Model.GroupName"</span></div>
+            <div><strong>Model.TeacherId:</strong> <span>@Model.TeacherId</span></div>
+            <div><strong>Model.Teacher:</strong> <span>@(Model.Teacher?.Department ?? "NULL")</span></div>
+        </div>
+        <div style="margin-top: 10px;">
+            <strong>ViewBag.GroupList count:</strong> @(ViewBag.GroupList?.Count ?? 0)
+        </div>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div style="background-color: #F8D7DA; color: #721C24; padding: 12px; border-radius: 5px; margin-bottom: 1rem;">
+            ❌ @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="entity-card">
+        <div class="entity-name">📝 Редагування інформації про курс</div>
+
+        <form asp-area="Teacher" asp-controller="Courses" asp-action="Edit" method="post" style="margin: 1rem 0;" id="editForm">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" name="TeacherId" value="@Model.TeacherId" />
+
+            <div asp-validation-summary="ModelOnly" class="field-validation-summary"></div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label for="Title" class="form-label">Назва курсу</label>
+                <input type="text" name="Title" class="text-input" placeholder="Введіть назву курсу" id="titleField" value="@Model.Title" />
+                <span asp-validation-for="Title" class="field-validation"></span>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label for="Description" class="form-label">Опис курсу</label>
+                <textarea name="Description" class="text-input" placeholder="Введіть опис курсу" rows="4" id="descriptionField">@Model.Description</textarea>
+                <span asp-validation-for="Description" class="field-validation"></span>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+                <label for="GroupName" class="form-label">Група</label>
+                <select name="GroupName" class="text-input" required id="groupField">
+                    <option value="">Оберіть групу</option>
+                    @if (ViewBag.GroupList != null)
+                    {
+                        foreach (var group in ViewBag.GroupList)
+                        {
+                            if (group.Value == Model.GroupName)
+                            {
+                                <option value="@group.Value" selected>@group.Text</option>
+                            }
+                            else
+                            {
+                                <option value="@group.Value">@group.Text</option>
+                            }
+                        }
+                    }
+                </select>
+                <span asp-validation-for="GroupName" class="field-validation"></span>
+            </div>
+
+            <!-- Інформація про викладача -->
+            <div style="background: #f8f9fa; padding: 1rem; border-radius: 5px; margin-bottom: 1.5rem;">
+                <div style="font-weight: 500; color: var(--secondary); margin-bottom: 0.5rem;">👨‍🏫 Викладач</div>
+                <div style="color: #555;">
+                    @if (Model.Teacher != null)
+                    {
+                        @Model.Teacher.Department
+                    }
+                    else
+                    {
+                        <span style="color: #999; font-style: italic;">Невідомо</span>
+                    }
+                </div>
+                <div style="font-size: 0.8rem; color: #666; margin-top: 0.3rem;">
+                    ID викладача: @Model.TeacherId
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                <button type="submit" class="analyze-btn"
+                        style="flex: 1; min-width: 140px; text-align: center; background-color: #28a745; border: none; padding: 0.75rem 1rem;">
+                    💾 Зберегти зміни
+                </button>
+
+                <a href="/Teacher/Courses" class="analyze-btn"
+                   style="flex: 1; min-width: 140px; text-align: center; background-color: var(--secondary); padding: 0.75rem 1rem; text-decoration: none;">
+                    ← Скасувати
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('=== ДІАГНОСТИКА EDIT ===');
+
+            const titleField = document.getElementById('titleField');
+            const descField = document.getElementById('descriptionField');
+            const groupField = document.getElementById('groupField');
+
+            console.log('Title value:', titleField?.value);
+            console.log('Description value:', descField?.value);
+            console.log('Group value:', groupField?.value);
+
+            // Додаємо обробник для форми
+            const form = document.getElementById('editForm');
+            form.addEventListener('submit', function(e) {
+                console.log('=== ВІДПРАВКА ФОРМИ ===');
+                console.log('Title:', titleField?.value);
+                console.log('Description:', descField?.value);
+                console.log('Group:', groupField?.value);
+
+                if (!titleField?.value.trim()) {
+                    e.preventDefault();
+                    alert('Будь ласка, введіть назву курсу');
+                    return;
+                }
+
+                if (!groupField?.value.trim()) {
+                    e.preventDefault();
+                    alert('Будь ласка, оберіть групу');
+                    return;
+                }
+            });
+        });
+    </script>
+}

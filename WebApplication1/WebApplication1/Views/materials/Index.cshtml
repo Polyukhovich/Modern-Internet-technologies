@@ -1,0 +1,106 @@
+﻿@model IEnumerable<WebApplication1Data.models.Material>
+@{
+    ViewData["Title"] = "Матеріали";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">📚 Матеріали</h1>
+
+    <div class="input-section">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Управління матеріалами</h2>
+
+        @if (User.IsInRole("Teacher"))
+        {
+            <a href="@Url.Action("Create")" class="analyze-btn" style="text-decoration: none; display: inline-block; margin: 0;">
+                ➕ Створити новий матеріал
+            </a>
+        }
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div style="background-color: #D4EDDA; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 1rem;">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+    </div>
+
+    <div class="results-section">
+        @if (Model.Any())
+        {
+            @foreach (var material in Model)
+            {
+                <div class="entity-card">
+                    <div class="entity-name">
+                        📚 @material.Title
+                    </div>
+
+                    <p style="color: var(--secondary); margin-bottom: 1rem; line-height: 1.5;">
+                        @material.Description
+                    </p>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; flex-wrap: wrap; gap: 1rem;">
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <span style="color: var(--secondary); font-size: 0.9rem;">
+                                👨‍🏫 @material.UploadedBy?.FirstName @material.UploadedBy?.LastName
+                            </span>
+                            <span style="color: var(--secondary); font-size: 0.9rem;">
+                                📖 @material.Course?.Title
+                            </span>
+                        </div>
+
+                        <!-- Основні кнопки дій -->
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <!-- Завантажити -->
+                            <a href="@material.ContentUrl"
+                               target="_blank"
+                               class="analyze-btn"
+                               style="flex: 1; min-width: 120px; text-align: center; background-color: #28A745; border: none; padding: 0.5rem 1rem; text-decoration: none;">
+                                📥 Відкрити
+                            </a>
+
+                            <!-- Деталі -->
+                            <a href="@Url.Action("Details", new { id = material.Id })"
+                               class="analyze-btn"
+                               style="flex: 1; min-width: 120px; text-align: center; background-color: var(--secondary); border: none; padding: 0.5rem 1rem; text-decoration: none;">
+                                👁️ Деталі
+                            </a>
+
+                            @if (User.IsInRole("Teacher"))
+                            {
+                                <!-- Редагувати -->
+                                <a href="@Url.Action("Edit", new { id = material.Id })"
+                                   class="analyze-btn"
+                                   style="flex: 1; min-width: 120px; text-align: center; background-color: #FFC107; border: none; padding: 0.5rem 1rem; text-decoration: none;">
+                                    ✏️ Редагувати
+                                </a>
+
+                              
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="entity-card">
+                <div class="entity-name">Матеріалів поки що немає</div>
+                <div class="no-results">
+                    @if (User.IsInRole("Teacher"))
+                    {
+                        <p>Створіть перший навчальний матеріал!</p>
+                        <a href="@Url.Action("Create")" class="analyze-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+                            ➕ Створити матеріал
+                        </a>
+                    }
+                    else
+                    {
+                        <p>Викладачі ще не додали навчальних матеріалів.</p>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>

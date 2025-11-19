@@ -1,0 +1,43 @@
+﻿@model WebApplication1Data.models.Grade
+@{
+    ViewData["Title"] = "Видалити оцінку";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">Видалити оцінку</h1>
+
+    <div class="input-section">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Підтвердження видалення</h2>
+
+        <div class="results-section">
+            <div class="entity-card" style="border: 2px solid #FF6B6B;">
+                <div class="entity-name" style="color: #FF6B6B;">⚠️ Ви впевнені, що хочете видалити цю оцінку?</div>
+
+                <div style="margin: 1rem 0;">
+                    <p><strong>Курс:</strong> @Model.Course?.Title</p>
+                    <p><strong>Студент:</strong> @Model.Student?.User?.LastName @Model.Student?.User?.FirstName</p>
+                    <p><strong>Оцінка:</strong> <span style="font-size: 1.2rem; font-weight: bold;">@Model.Value</span></p>
+                    <p><strong>Дата:</strong> @Model.DateSet.ToString("dd.MM.yyyy")</p>
+                    <p><strong>Група:</strong> @Model.Course?.GroupName</p>
+                </div>
+
+                <form asp-action="Delete" method="post" style="margin-top: 1rem;">
+                    <input type="hidden" asp-for="Id" />
+                    @Html.AntiForgeryToken()
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button type="submit" class="analyze-btn" style="border: none; cursor: pointer; background: #FF6B6B; color: white; padding: 0.75rem 1.5rem;">
+                            🗑️ Так, видалити
+                        </button>
+                        <a href="/Teacher/Grades"
+                            asp-action="Index" class="analyze-btn" style="background: var(--secondary); color: white; border: none; padding: 0.75rem 1.5rem; text-decoration: none; display: inline-block;">
+                            ← Скасувати
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

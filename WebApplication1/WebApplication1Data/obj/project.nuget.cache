@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gm6zY+JpYgA=",
+  "dgSpecHash": "YhLkzW+Lcr0=",
   "success": true,
-  "projectFilePath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj",
+  "projectFilePath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kingg\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\kingg\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

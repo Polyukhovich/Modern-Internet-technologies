@@ -1,0 +1,72 @@
+﻿@model IEnumerable<WebApplication1Data.models.Course>
+
+@{
+    ViewData["Title"] = "Мої курси";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Переконайтеся, що Layout встановлено
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">Мої курси</h1>
+
+    <div class="input-section">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Управління курсами</h2>
+
+        <a href="/Teacher/Courses/Create" class="analyze-btn" style="text-decoration: none; display: inline-block; margin: 0;">
+            ➕ Створити новий курс
+        </a>
+    </div>
+
+
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div style="background-color: #D4EDDA; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 1rem;">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <div class="results-section">
+            @if (Model.Any())
+            {
+                @foreach (var item in Model)
+                {
+                    <div class="entity-card">
+                        <div class="entity-name">
+                            📚 @Html.DisplayFor(modelItem => item.Title)
+                        </div>
+
+                    <!-- Основні кнопки дій -->
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+                        <!-- Прості HTML посилання -->
+                        <a href="/Teacher/Courses/Edit/@item.Id"
+                           class="analyze-btn"
+                           style="flex: 1; min-width: 120px; text-align: center; background-color: #FFC107;  border: none; padding: 0.5rem 1rem; text-decoration: none;">
+                            ✏️ Редагувати
+                        </a>
+
+                        <a href="/Teacher/Courses/Details/@item.Id"
+                           class="analyze-btn"
+                           style="flex: 1; min-width: 120px; text-align: center; background-color: var(--secondary); border: none; padding: 0.5rem 1rem; text-decoration: none;">
+                            👁️ Деталі
+                        </a>
+
+                        <a href="/Teacher/Courses/Delete/@item.Id"
+                           class="analyze-btn"
+                           style="flex: 1; min-width: 120px; text-align: center; background-color: #DC3545; border: none; padding: 0.5rem 1rem; text-decoration: none;">
+                            🗑️ Видалити
+                        </a>
+                    </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="entity-card">
+                    <p style="color: #777;">У вас поки немає створених курсів. Натисніть "Створити новий курс", щоб розпочати.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

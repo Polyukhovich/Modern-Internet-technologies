@@ -1,0 +1,187 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Реєстрація";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <h2>Створення нового облікового запису</h2>
+            <hr />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Особиста інформація (залишається без змін) -->
+            <div class="form-floating mb-3">
+                <input asp-for="Input.FirstName" class="form-control" autocomplete="given-name" />
+                <label asp-for="Input.FirstName">Ім'я</label>
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.LastName" class="form-control" autocomplete="family-name" />
+                <label asp-for="Input.LastName">Прізвище</label>
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" />
+                <label asp-for="Input.Email">Email</label>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" />
+                <label asp-for="Input.Password">Пароль</label>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" />
+                <label asp-for="Input.ConfirmPassword">Підтвердження пароля</label>
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Input.SecretWord" class="form-control" />
+                <label asp-for="Input.SecretWord">Секретне слово</label>
+                <span asp-validation-for="Input.SecretWord" class="text-danger"></span>
+                <small class="form-text text-muted">
+                    Введіть секретне слово для отримання ролі:<br>
+                    • student123 - для студента<br>
+                    • teacher456 - для викладача<br>
+                    • admin789 - для адміністратора
+                </small>
+            </div>
+
+            <!-- Поля для студента -->
+            <div id="studentFields" style="display: none;">
+                <div class="form-floating mb-3">
+                    <select asp-for="Input.GroupName" class="form-control" asp-items="Model.AvailableGroups" id="groupSelect">
+                    </select>
+                    <label asp-for="Input.GroupName">Група</label>
+                    <span asp-validation-for="Input.GroupName" class="text-danger"></span>
+                    <small class="form-text text-muted" id="courseInfo">
+                        Курс буде визначено автоматично з назви групи
+                    </small>
+                </div>
+            </div>
+
+            <!-- Поля для викладача -->
+            <div id="teacherFields" style="display: none;">
+                <div class="form-floating mb-3">
+                    <select asp-for="Input.Department" class="form-control">
+                        <option value="">-- Оберіть кафедру --</option>
+                        <option value="Кафедра комп'ютерних наук">Кафедра комп'ютерних наук</option>
+                        <option value="Кафедра програмної інженерії">Кафедра програмної інженерії</option>
+                        <option value="Кафедра прикладної математики">Кафедра прикладної математики</option>
+                        <option value="Кафедра системного аналізу">Кафедра системного аналізу</option>
+                        <option value="Кафедра кібербезпеки">Кафедра кібербезпеки</option>
+                    </select>
+                    <label asp-for="Input.Department">Кафедра</label>
+                    <span asp-validation-for="Input.Department" class="text-danger"></span>
+                </div>
+            </div>
+
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Зареєструватися</button>
+        </form>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Інформація про ролі</h5>
+                <div class="mb-3">
+                    <strong>👨‍🎓 Студент:</strong>
+                    <ul>
+                        <li>Доступ до курсів</li>
+                        <li>Перегляд оцінок</li>
+                        <li>Особистий розклад</li>
+                        <li><strong>Курс визначається автоматично з назви групи</strong></li>
+                    </ul>
+                </div>
+                <div class="mb-3">
+                    <strong>👨‍🏫 Викладач:</strong>
+                    <ul>
+                        <li>Створення курсів</li>
+                        <li>Виставлення оцінок</li>
+                        <li>Доступ до форуму</li>
+                        <li>Потрібно обрати кафедру</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>👨‍💼 Адміністратор:</strong>
+                    <ul>
+                        <li>Повний доступ до системи</li>
+                        <li>Управління користувачами</li>
+                        <li>Всі права викладача</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Функція для визначення курсу з назви групи
+        function getCourseFromGroupName(groupName) {
+            if (!groupName || groupName.length < 4) return 1;
+
+            for (let i = 2; i < Math.min(4, groupName.length); i++) {
+                if (/\d/.test(groupName[i])) {
+                    let course = parseInt(groupName[i]);
+                    return Math.max(1, Math.min(6, course)); // Обмежуємо 1-6
+                }
+            }
+            return 1;
+        }
+
+        // Показуємо/ховаємо поля залежно від секретного слова
+        document.getElementById('Input_SecretWord').addEventListener('input', function() {
+            var secretWord = this.value.toLowerCase();
+            var studentFields = document.getElementById('studentFields');
+            var teacherFields = document.getElementById('teacherFields');
+
+            studentFields.style.display = 'none';
+            teacherFields.style.display = 'none';
+
+            if (secretWord === 'student123') {
+                studentFields.style.display = 'block';
+            } else if (secretWord === 'teacher456') {
+                teacherFields.style.display = 'block';
+            }
+        });
+
+        // Оновлюємо інформацію про курс при виборі групи
+        document.getElementById('groupSelect')?.addEventListener('change', function() {
+            var courseInfo = document.getElementById('courseInfo');
+            var selectedGroup = this.value;
+
+            if (selectedGroup) {
+                var course = getCourseFromGroupName(selectedGroup);
+                courseInfo.textContent = `Обрана група: ${selectedGroup} → ${course} курс`;
+                courseInfo.style.color = 'var(--success)';
+            } else {
+                courseInfo.textContent = 'Курс буде визначено автоматично з назви групи';
+                courseInfo.style.color = '';
+            }
+        });
+
+        // Перевіряємо при завантаженні сторінки
+        document.addEventListener('DOMContentLoaded', function() {
+            var secretWordField = document.getElementById('Input_SecretWord');
+            var studentFields = document.getElementById('studentFields');
+            var teacherFields = document.getElementById('teacherFields');
+            var secretWord = secretWordField.value.toLowerCase();
+
+            if (secretWord === 'student123') {
+                studentFields.style.display = 'block';
+            } else if (secretWord === 'teacher456') {
+                teacherFields.style.display = 'block';
+            }
+        });
+    </script>
+}

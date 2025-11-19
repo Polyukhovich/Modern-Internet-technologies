@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using WebApplication1Data.Data;
 
 namespace WebApplication1Data.Repositories
 {
@@ -30,24 +31,9 @@ namespace WebApplication1Data.Repositories
         {
             await _dbSet.AddAsync(entity);
         }
-        public async Task<int> UpdateAsync(T item)
+        public async Task<int> UpdateAsync(T entity)
         {
-            
-            var local = _dbSet.Local.FirstOrDefault(entry => entry == item);
-
-            if (local != null)
-            {
-                
-                _context.Entry(local).State = EntityState.Detached;
-            }
-
-            
-            _context.Entry(item).State = EntityState.Modified;
-
-            
-            _dbSet.Update(item);
-
-            
+            _dbSet.Update(entity);
             return await _context.SaveChangesAsync();
         }
 

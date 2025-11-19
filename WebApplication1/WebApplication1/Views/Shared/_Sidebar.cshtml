@@ -1,0 +1,167 @@
+﻿<div class="sidebar" id="sidebar">
+    <div style="color: white; text-align: center; margin-bottom: 1rem; padding-top: 1rem; position: sticky; top: 0; background: var(--primary); z-index: 10; padding-bottom: 1rem; border-bottom: 1px solid var(--secondary);">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <small style="color: var(--accent); font-family: inherit; font-size: 1.1rem; display: block;">
+                @User.Identity.Name
+            </small>
+            <small style="color: var(--accent); font-family: inherit; font-size: 0.9rem; display: block;">
+                @GetGreeting()@GetRoleGreeting()
+            </small>
+        }
+        else
+        {
+            <small style="color: var(--accent); font-family: inherit; font-size: 1.1rem; display: block;">
+                Гість
+            </small>
+            <small style="color: var(--accent); font-family: inherit; font-size: 0.9rem; display: block;">
+                @GetGreeting(), радий вас бачити!
+            </small>
+        }
+    </div>
+
+    <nav class="sidebar-nav" style="overflow-y: auto; max-height: calc(100vh - 120px); padding-right: 5px;">
+        <!-- Загальні посилання -->
+        <div class="sidebar-section">
+            <a href="@Url.Action("Index", "Home", new { area = "" })" class="sidebar-link">
+                <span>🌐</span> Головна сайту
+            </a>
+            <a href="@Url.Action("Privacy", "Home", new { area = "" })" class="sidebar-link">
+                <span>🔒</span> Політика конфіденційності
+            </a>
+        </div>
+
+        <!-- Посилання для неавтентифікованих користувачів -->
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <div class="sidebar-section" style="border-top: 1px solid var(--secondary); margin: 1rem 0; padding-top: 1rem;">
+                <a href="@Url.Page("/Account/Login", new { area = "Identity" })" class="sidebar-link">
+                    <span>🔑</span> Ввійти в систему
+                </a>
+                <a href="@Url.Page("/Account/Register", new { area = "Identity" })" class="sidebar-link">
+                    <span>📝</span> Зареєструватися
+                </a>
+            </div>
+        }
+
+        <!-- Умовні посилання -->
+        @{
+            var hasForumAccess = User.HasClaim(c =>
+            (c.Type == "IsMentor" && c.Value == "true") ||
+            (c.Type == "IsVerifiedUser" && c.Value == "true") ||
+            (c.Type == "HasForumAccess" && c.Value == "true"));
+
+            var workingHoursClaim = User.FindFirst("WorkingHours");
+            var hasPremiumAccess = workingHoursClaim != null && int.TryParse(workingHoursClaim.Value, out int hours) && hours >= 100;
+        }
+
+        @if (hasForumAccess)
+        {
+            <div class="sidebar-section">
+                <a href="@Url.Action("Index", "Forum", new { area = "" })" class="sidebar-link">
+                    <span>💬</span> Форум
+                </a>
+            </div>
+        }
+
+        @if (User.HasClaim("IsVerifiedClient", "true"))
+        {
+            <div class="sidebar-section">
+                <a href="@Url.Action("Index", "Materials", new { area = "" })" class="sidebar-link">
+                    <span>📄</span> Матеріали
+                </a>
+                <a href="@Url.Action("Index", "Archive", new { area = "" })" class="sidebar-link">
+                    <span>📁</span> Архів матеріалів
+                </a>
+            </div>
+        }
+
+        @if (hasPremiumAccess)
+        {
+            <div class="sidebar-section">
+                <a href="@Url.Action("Index", "Premium", new { area = "" })" class="sidebar-link">
+                    <span>⭐</span> Преміум доступ
+                </a>
+            </div>
+        }
+
+        <!-- Рольові посилання -->
+        @if (User.IsInRole("Student"))
+        {
+            <div class="sidebar-section" style="border-top: 1px solid var(--secondary); margin: 1rem 0; padding-top: 1rem;">
+                <div style="color: var(--accent); padding: 0 1rem 0.5rem 1rem; font-family: inherit; font-size: 0.9rem; font-weight: bold;">Студент</div>
+                <a href="@Url.Action("Index", "Dashboard", new { area = "Student" })" class="sidebar-link">
+                    <span>🏠</span> Головна
+                </a>
+                <a href="@Url.Action("Index", "Courses", new { area = "Student" })" class="sidebar-link">
+                    <span>📚</span> Мої курси
+                </a>
+                <a href="@Url.Action("Index", "Grades", new { area = "Student" })" class="sidebar-link">
+                    <span>📈</span> Мої оцінки
+                </a>
+                <a href="@Url.Action("Index", "Schedule", new { area = "Student" })" class="sidebar-link">
+                    <span>📅</span> Мій розклад
+                </a>
+            </div>
+        }
+        else if (User.IsInRole("Teacher"))
+        {
+            <div class="sidebar-section" style="border-top: 1px solid var(--secondary); margin: 1rem 0; padding-top: 1rem;">
+                <div style="color: var(--accent); padding: 0 1rem 0.5rem 1rem; font-family: inherit; font-size: 0.9rem; font-weight: bold;">Викладач</div>
+                <a href="@Url.Action("Index", "Dashboard", new { area = "Teacher" })" class="sidebar-link">
+                    <span>🏠</span> Головна
+                </a>
+                <a href="@Url.Action("Index", "Courses", new { area = "Teacher" })" class="sidebar-link">
+                    <span>📚</span> Мої курси
+                </a>
+                <a href="@Url.Action("Create", "Courses", new { area = "Teacher" })" class="sidebar-link">
+                    <span>🆕</span> Створити курс
+                </a>
+                <a href="@Url.Action("Index", "Grades", new { area = "Teacher" })" class="sidebar-link">
+                    <span>📈</span> Оцінки
+                </a>
+                <a href="@Url.Action("Create", "Grades", new { area = "Teacher" })" class="sidebar-link">
+                    <span>➕</span> Виставити оцінку
+                </a>
+                <a href="@Url.Action("Index", "Schedule", new { area = "Teacher" })" class="sidebar-link">
+                    <span>📅</span> Мій розклад
+                </a>
+            </div>
+        }
+
+        <!-- Кнопка виходу в сайдбарі -->
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div style="border-top: 1px solid var(--secondary); margin: 1rem 0; padding-top: 1rem;">
+                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post">
+                    <button type="submit" class="sidebar-link" style="background: none; border: none; color: white; width: 100%; text-align: left; padding: 0.8rem 1rem; border-radius: 8px; cursor: pointer; font-family: inherit; font-size: 1rem;">
+                        <span>🚪</span> Вийти з системи
+                    </button>
+                </form>
+            </div>
+        }
+    </nav>
+</div>
+</div>
+
+<!-- Оверлей -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+@{
+    string GetGreeting()
+    {
+        var hour = DateTime.Now.Hour;
+        if (hour >= 5 && hour < 12) return "Доброго ранку";
+        else if (hour >= 12 && hour < 18) return "Доброго дня";
+        else if (hour >= 18 && hour < 22) return "Доброго вечора";
+        else return "Доброї ночі";
+    }
+
+    string GetRoleGreeting()
+    {
+        if (User.IsInRole("Student")) return ", Студенте!";
+        else if (User.IsInRole("Teacher")) return ", Викладачу!";
+        else if (User.IsInRole("Admin")) return ", Адміне!";
+        else return " ";
+    }
+}

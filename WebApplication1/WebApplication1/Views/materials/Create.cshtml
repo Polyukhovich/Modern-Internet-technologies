@@ -1,0 +1,88 @@
+﻿@model WebApplication1Data.models.Material
+@{
+    ViewData["Title"] = "Створення матеріалу";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">➕ Створення матеріалу</h1>
+
+    <!-- ДОДАЙТЕ ЦЕЙ БЛОК ДЛЯ ВІДОБРАЖЕННЯ ПОМИЛОК -->
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <h4>Помилки валідації:</h4>
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+    }
+
+    <div class="input-section">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Новий навчальний матеріал</h2>
+
+        <form asp-action="Create" method="post" id="createForm">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label asp-for="Title" style="display: block; margin-bottom: 0.5rem; color: var(--secondary); font-weight: 600;">Назва матеріалу *</label>
+                <input asp-for="Title" class="text-input" style="width: 100%;" placeholder="Введіть назву матеріалу" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label asp-for="Description" style="display: block; margin-bottom: 0.5rem; color: var(--secondary); font-weight: 600;">Опис матеріалу</label>
+                <textarea asp-for="Description" class="text-input" style="width: 100%; height: 120px;" placeholder="Опишіть зміст матеріалу"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1.5rem;">
+                <label asp-for="ContentUrl" style="display: block; margin-bottom: 0.5rem; color: var(--secondary); font-weight: 600;">Посилання на файл *</label>
+                <input asp-for="ContentUrl" class="text-input" style="width: 100%;" placeholder="https://example.com/material.pdf" />
+                <span asp-validation-for="ContentUrl" class="text-danger"></span>
+                <small class="form-text text-muted">Введіть URL для завантаження файлу або посилання на ресурс</small>
+            </div>
+
+            <!-- ЗМІНИЛИ GroupName на CourseId -->
+            <div style="margin-bottom: 1.5rem;">
+                <label asp-for="CourseId" class="entity-name" style="display: block; margin-bottom: 0.5rem;">Курс *</label>
+                <select asp-for="CourseId" class="text-input" required>
+                    <option value="">Оберіть курс</option>
+                    @if (ViewBag.CourseList != null)
+                    {
+                        foreach (var course in ViewBag.CourseList)
+                        {
+                            <option value="@course.Value">@course.Text</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="CourseId" style="color: #FF6B6B; font-size: 0.9rem;"></span>
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button type="submit" class="analyze-btn" id="submitBtn">💾 Створити матеріал</button>
+                <a href="@Url.Action("Index")" class="analyze-btn" style="background: var(--secondary); text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">← Скасувати</a>
+            </div>
+        </form>
+    </div>
+
+    <div style="margin-top: 2rem; padding: 1rem; background-color: #e3f2fd; border-radius: 8px; border-left: 4px solid #2196F3;">
+        <p style="color: #1565C0; margin: 0; font-weight: 500;">
+            ℹ️ Ви створюєте новий навчальний матеріал. Після створення ви зможете редагувати та видаляти його.
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            $('#createForm').on('submit', function (e) {
+                console.log('Форма відправляється...');
+                $('#submitBtn').prop('disabled', true).text('Створення...');
+            });
+        });
+    </script>
+}

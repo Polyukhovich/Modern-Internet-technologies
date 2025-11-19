@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Архів матеріалів";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">📁 Архів матеріалів</h1>
+
+    <div class="input-section">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Доступні матеріали</h2>
+
+        <div class="results-section">
+            <div class="entity-card">
+                <div class="entity-name">📄 Навчальні матеріали</div>
+                <div style="padding: 1rem;">
+                    <ul style="text-align: left; color: var(--secondary);">
+                        <li>Конспекти лекцій</li>
+                        <li>Презентації</li>
+                        <li>Методичні вказівки</li>
+                        <li>Лабораторні роботи</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="entity-card">
+                <div class="entity-name">🎥 Відеоархів</div>
+                <div style="padding: 1rem;">
+                    <ul style="text-align: left; color: var(--secondary);">
+                        <li>Записи лекцій</li>
+                        <li>Вебінари</li>
+                        <li>Інструкції</li>
+                        <li>Демонстрації</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="entity-card">
+                <div class="entity-name">📚 Бібліотека</div>
+                <div style="padding: 1rem;">
+                    <ul style="text-align: left; color: var(--secondary);">
+                        <li>Підручники</li>
+                        <li>Статті</li>
+                        <li>Дослідження</li>
+                        <li>Наукові роботи</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 2rem; padding: 1rem; background-color: #e8f5e8; border-radius: 8px; border-left: 4px solid #4CAF50;">
+        <p style="color: #2E7D32; margin: 0; font-weight: 500;">
+            ✅ Ви маєте доступ до архіву як перевірений клієнт
+        </p>
+    </div>
+</div>

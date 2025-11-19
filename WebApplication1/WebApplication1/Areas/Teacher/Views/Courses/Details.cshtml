@@ -1,0 +1,121 @@
+﻿@model WebApplication1Data.models.Course
+
+@{
+    ViewData["Title"] = "Деталі курсу";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">👁️ Деталі курсу</h1>
+
+    <div class="entity-card">
+        <div class="entity-name">📚 Інформація про курс</div>
+
+        <div style="margin: 1rem 0;">
+            <dl class="row" style="margin-left: 1rem;">
+                <dt class="col-sm-3" style="font-weight: 500; color: var(--secondary);">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-sm-9" style="margin-bottom: 1rem;">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+
+                <dt class="col-sm-3" style="font-weight: 500; color: var(--secondary);">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-9" style="margin-bottom: 1rem;">
+                    @if (!string.IsNullOrEmpty(Model.Description))
+                    {
+                        @Html.DisplayFor(model => model.Description)
+                    }
+                    else
+                    {
+                        <span style="color: #777; font-style: italic;">Опис відсутній</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-3" style="font-weight: 500; color: var(--secondary);">
+                    @Html.DisplayNameFor(model => model.Teacher)
+                </dt>
+                <dd class="col-sm-9" style="margin-bottom: 1rem;">
+                    @if (Model.Teacher != null)
+                    {
+                        @Html.DisplayFor(model => model.Teacher.Department)
+                    }
+                    else
+                    {
+                        <span style="color: #777; font-style: italic;">Невідомо</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-3" style="font-weight: 500; color: var(--secondary);">
+                    @Html.DisplayNameFor(model => model.GroupName)
+                </dt>
+                <dd class="col-sm-9" style="margin-bottom: 1rem;">
+                    @if (!string.IsNullOrEmpty(Model.GroupName))
+                    {
+                        <span style="background: #e9ecef; padding: 4px 8px; border-radius: 4px;">
+                            @Html.DisplayFor(model => model.GroupName)
+                        </span>
+                    }
+                    else
+                    {
+                        <span style="color: #777; font-style: italic;">Не вказано</span>
+                    }
+                </dd>
+
+               
+            </dl>
+        </div>
+
+        <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+            <a asp-area="Teacher" asp-controller="Courses" asp-action="Edit" asp-route-id="@Model.Id"
+               class="analyze-btn"
+               style="flex: 1; min-width: 140px; text-align: center; background-color: #FFC107; color: black; border: none; padding: 0.5rem 1rem; text-decoration: none;">
+                ✏️ Редагувати
+            </a>
+
+            <a href="/Teacher/Courses"
+               class="analyze-btn"
+               style="flex: 1; min-width: 140px; text-align: center; background-color: var(--secondary); border: none; padding: 0.5rem 1rem; text-decoration: none;">
+                ← Назад до списку
+            </a>
+        </div>
+    </div>
+
+    <!-- Додаткова інформація про пов'язані дані -->
+    <div class="entity-card" style="margin-top: 1.5rem;">
+        <div class="entity-name">📊 Статистика курсу</div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📈</div>
+                <div style="font-weight: bold; color: var(--secondary);">Оцінки</div>
+                <div style="font-size: 1.5rem; color: #28a745;">0</div>
+                <div style="font-size: 0.8rem; color: #666;">записів</div>
+            </div>
+
+            <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📎</div>
+                <div style="font-weight: bold; color: var(--secondary);">Матеріали</div>
+                <div style="font-size: 1.5rem; color: #17a2b8;">0</div>
+                <div style="font-size: 0.8rem; color: #666;">файлів</div>
+            </div>
+
+            <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📅</div>
+                <div style="font-weight: bold; color: var(--secondary);">Занять</div>
+                <div style="font-size: 1.5rem; color: #dc3545;">0</div>
+                <div style="font-size: 0.8rem; color: #666;">в розкладі</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

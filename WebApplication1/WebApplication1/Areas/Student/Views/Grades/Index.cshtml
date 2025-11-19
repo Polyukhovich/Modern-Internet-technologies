@@ -1,0 +1,64 @@
+﻿@model IEnumerable<WebApplication1Data.models.Grade>
+@{
+    ViewData["Title"] = "Мої оцінки";
+    var student = ViewBag.Student as WebApplication1Data.models.Student;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">Мої оцінки</h1>
+
+    <!-- Статистика -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        <div class="entity-card" style="background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white; text-align: center;">
+            <div class="entity-name" style="color: white;">📊 Всього оцінок</div>
+            <div style="font-size: 2.5rem; font-weight: bold;">@ViewBag.TotalGrades</div>
+        </div>
+        <div class="entity-card" style="background: linear-gradient(135deg, #5C6B73, #2A2B2E); color: white; text-align: center;">
+            <div class="entity-name" style="color: white;">⭐ Середній бал</div>
+            <div style="font-size: 2.5rem; font-weight: bold;">@ViewBag.AverageGrade</div>
+        </div>
+    </div>
+
+    <div class="input-section">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Список оцінок</h2>
+
+        <div class="results-section">
+            @foreach (var grade in Model)
+            {
+                <div class="entity-card">
+                    <div class="entity-name">@grade.Course?.Title</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <div style="display: flex; gap: 1rem;">
+                            <span style="color: var(--secondary); font-size: 0.9rem;">
+                                👨‍🏫 @grade.Teacher?.User?.LastName @grade.Teacher?.User?.FirstName
+                            </span>
+                            <span style="color: var(--secondary); font-size: 0.9rem;">
+                                📅 @grade.DateSet.ToString("dd.MM.yyyy")
+                            </span>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <span style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">
+                                @grade.Value
+                            </span>
+                            <a asp-action="Details" asp-route-id="@grade.Id" class="wiki-link">📋 Деталі</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="no-results">
+                <div style="text-align: center; padding: 2rem;">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                    <h3 style="color: var(--secondary); margin-bottom: 1rem;">Оцінок поки що немає</h3>
+                    <p style="color: var(--secondary); margin-bottom: 1.5rem;">Ваші оцінки з'являться тут після їх виставлення викладачами</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,3 +1,16 @@
 ﻿@{
-    Layout = "/Views/Shared/_Layout.cshtml";
+    // Для сторінок входу, реєстрації, скидання пароля - окремий Layout без панелі
+    if (Context.Request.Path.StartsWithSegments("/Identity/Account") &&
+        (Context.Request.Path.Value.Contains("Login") ||
+         Context.Request.Path.Value.Contains("Register") ||
+         Context.Request.Path.Value.Contains("ForgotPassword") ||
+         Context.Request.Path.Value.Contains("ResetPassword")))
+    {
+        Layout = "/Views/Shared/_LoginLayout.cshtml";
+    }
+    else
+    {
+        // Для інших сторінок Identity - звичайний Layout
+        Layout = "_Layout";
+    }
 }

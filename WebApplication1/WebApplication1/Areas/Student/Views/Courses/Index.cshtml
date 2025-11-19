@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WebApplication1Data.models.Course>
+@{
+    ViewData["Title"] = "Мої курси";
+    var student = ViewBag.Student as WebApplication1Data.models.Student;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">Мої курси</h1>
+
+    <div class="input-section">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Список курсів</h2>
+
+        <div class="results-section">
+            @if (Model.Any())
+            {
+                @foreach (var course in Model)
+                {
+                    <div class="entity-card">
+                        <div class="entity-name">@course.Title</div>
+                        <p style="color: var(--secondary); margin-bottom: 1rem; line-height: 1.5;">
+                            @course.Description
+                        </p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                            <div style="display: flex; gap: 1rem;">
+                                <span style="color: var(--secondary); font-size: 0.9rem;">
+                                    👨‍🏫 @course.Teacher?.User?.LastName
+                                </span>
+                                <span style="color: var(--secondary); font-size: 0.9rem;">
+                                    📖 @(course.Materials?.Count ?? 0) матеріалів
+                                </span>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <a asp-action="Details" asp-route-id="@course.Id" class="wiki-link">📋 Деталі</a>
+                                <a asp-action="Materials" asp-route-id="@course.Id" class="wiki-link">📖 Матеріали</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="entity-card">
+                    <div class="entity-name">Курсів поки що немає</div>
+                    <div class="no-results">Для вашої групи ще не створено жодного курсу.</div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>

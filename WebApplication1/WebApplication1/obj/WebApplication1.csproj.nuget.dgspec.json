@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {}
+    "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {}
   },
   "projects": {
-    "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj": {
+    "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj",
+        "projectUniqueName": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj",
         "projectName": "WebApplication1Data",
-        "projectPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj",
+        "projectPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj",
         "packagesPath": "C:\\Users\\kingg\\.nuget\\packages\\",
-        "outputPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1Data\\obj\\",
+        "outputPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1Data\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -98,14 +98,14 @@
         }
       }
     },
-    "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {
+    "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1\\WebApplication1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+        "projectUniqueName": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
         "projectName": "WebApplication1",
-        "projectPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+        "projectPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
         "packagesPath": "C:\\Users\\kingg\\.nuget\\packages\\",
-        "outputPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1\\obj\\",
+        "outputPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -127,8 +127,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj": {
-                "projectPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj"
+              "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj": {
+                "projectPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj"
               }
             }
           }
@@ -155,17 +155,25 @@
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.13, )"
+              "version": "[9.0.0, )"
             },
             "Microsoft.AspNetCore.Identity.UI": {
               "target": "Package",
-              "version": "[8.0.13, )"
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.9, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[9.0.0, )"
             }
           },
           "imports": [

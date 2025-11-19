@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Мій розклад";
+    var student = ViewBag.Student as WebApplication1Data.models.Student;
+    var scheduleByDay = ViewBag.ScheduleByDay as Dictionary<DayOfWeek, List<WebApplication1Data.models.ScheduleItem>>;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">Мій розклад</h1>
+
+    <div class="input-section">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Розклад занять</h2>
+
+        <div class="results-section">
+            @if (scheduleByDay != null && scheduleByDay.Count > 0)
+            {
+                @foreach (var daySchedule in scheduleByDay)
+                {
+                    <div class="entity-card">
+                        <div class="entity-name">@GetDayNameStatic(daySchedule.Key)</div>
+                        <div style="margin: 1rem 0;">
+                            @foreach (var item in daySchedule.Value)
+                            {
+                                <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--accent);">
+                                    <div style="font-weight: 500;">@item.Course?.Title</div>
+                                    <div>@item.StartTime.ToString(@"hh\:mm") - @item.EndTime.ToString(@"hh\:mm")</div>
+                                    <div style="color: var(--secondary);">@item.Room</div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="no-results">
+                    <div style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📅</div>
+                        <h3 style="color: var(--secondary); margin-bottom: 1rem;">Розклад поки що відсутній</h3>
+                        <p style="color: var(--secondary); margin-bottom: 1.5rem;">Розклад з'явиться тут після його створення викладачами</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@functions {
+    public static string GetDayNameStatic(DayOfWeek day)
+    {
+        return day switch
+        {
+            DayOfWeek.Monday => "Понеділок",
+            DayOfWeek.Tuesday => "Вівторок",
+            DayOfWeek.Wednesday => "Середа",
+            DayOfWeek.Thursday => "Четвер",
+            DayOfWeek.Friday => "П'ятниця",
+            DayOfWeek.Saturday => "Субота",
+            DayOfWeek.Sunday => "Неділя",
+            _ => day.ToString()
+        };
+    }
+}

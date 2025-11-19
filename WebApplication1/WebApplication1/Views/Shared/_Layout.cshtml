@@ -3,34 +3,48 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApplication1</title>
+    <title>@ViewData["Title"] - Університет</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/entity-linking.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication1</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button class="nav-link text-dark sidebar-toggle-nav" onclick="toggleSidebar()" style="background: none; border: none; cursor: pointer; font-family: inherit; font-size: 1rem;">
+                    ☰ Меню
                 </button>
+
+                <!-- Привітання по центру -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="navbar-nav mx-auto">
+                        <span class="nav-item nav-link text-dark" style="font-family: inherit; font-size: 1rem; font-weight: normal;">
+                            @GetGreeting()@GetRoleGreeting()
+                        </span>
+                    </div>
+                }
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
+                        <!-- Пустий простір -->
                     </ul>
-                    <partial name="_LoginPartial" />
+
+                    <!-- Дата та час справа -->
+                    <div class="navbar-nav">
+                        <div class="nav-item">
+                            <span id="currentDateTime" class="nav-link text-dark" style="font-family: inherit; font-size: 0.9rem; font-weight: normal;">
+                                
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -39,12 +53,87 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2025 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row">
+                <div class="col-md-6">
+                    &copy; 2025 - @(ViewBag.AppName ?? "WebApplication1") -
+                    <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                </div>
+                <div class="col-md-6 text-end">
+                    <small>
+                        <strong>Configuration:</strong><br />
+
+                        Theme: @(ViewBag.Theme ?? "Default") |
+                        Default Role: @(ViewBag.DefaultRole ?? "N/A") |
+                    </small>
+                </div>
+            </div>
         </div>
     </footer>
+
+    <!-- Сайдбар -->
+    <partial name="_Sidebar" />
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/datetime.js" asp-append-version="true"></script>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+       
+
+        document.querySelectorAll('.sidebar-link').forEach(link => {
+            link.addEventListener('click', () => {
+                toggleSidebar();
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const sidebar = document.getElementById('sidebar');
+                if (sidebar.classList.contains('open')) {
+                    toggleSidebar();
+                }
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.sidebar-toggle-nav');
+            if (sidebar.classList.contains('open') &&
+                !sidebar.contains(e.target) &&
+                !toggleBtn.contains(e.target)) {
+                toggleSidebar();
+            }
+        });
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+@{
+    string GetGreeting()
+    {
+        var hour = DateTime.Now.Hour;
+        if (hour >= 5 && hour < 12) return "Доброго ранку";
+        else if (hour >= 12 && hour < 18) return "Доброго дня";
+        else if (hour >= 18 && hour < 22) return "Доброго вечора";
+        else return "Доброї ночі";
+    }
+
+    string GetRoleGreeting()
+    {
+        if (User.IsInRole("Student")) return ", Студенте!";
+        else if (User.IsInRole("Teacher")) return ", Викладачу!";
+        else if (User.IsInRole("Admin")) return ", Адміне!";
+        else return "!";
+    }
+
+
+}

@@ -1,0 +1,157 @@
+﻿@model WebApplication1Data.models.Grade
+@{
+    ViewData["Title"] = "Деталі оцінки";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">👁️ Деталі оцінки</h1>
+
+    <div class="entity-card">
+        <div class="entity-name">📊 Інформація про оцінку</div>
+
+        <div style="margin: 1rem 0;">
+            <dl class="row" style="margin-left: 1rem;">
+                <dt class="col-sm-3" style="font-weight: 500; color: var(--secondary);">
+                    @Html.DisplayNameFor(model => model.Value)
+                </dt>
+                <dd class="col-sm-9" style="margin-bottom: 1rem;">
+                    <span style="font-size: 1.5rem; font-weight: bold; color: var(--primary);">
+                        @Html.DisplayFor(model => model.Value)
+                    </span>
+                </dd>
+
+                <dt class="col-sm-3" style="font-weight: 500; color: var(--secondary);">
+                    @Html.DisplayNameFor(model => model.Course)
+                </dt>
+                <dd class="col-sm-9" style="margin-bottom: 1rem;">
+                    @if (Model.Course != null)
+                    {
+                        @Html.DisplayFor(model => model.Course.Title)
+                    }
+                    else
+                    {
+                        <span style="color: #777; font-style: italic;">Не вказано</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-3" style="font-weight: 500; color: var(--secondary);">
+                    @Html.DisplayNameFor(model => model.Student)
+                </dt>
+                <dd class="col-sm-9" style="margin-bottom: 1rem;">
+                    @if (Model.Student != null && Model.Student.User != null)
+                    {
+                        @Html.DisplayFor(model => model.Student.User.LastName) @Html.DisplayFor(model => model.Student.User.FirstName)
+                    }
+                    else
+                    {
+                        <span style="color: #777; font-style: italic;">Не вказано</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-3" style="font-weight: 500; color: var(--secondary);">
+                    @Html.DisplayNameFor(model => model.Teacher)
+                </dt>
+                <dd class="col-sm-9" style="margin-bottom: 1rem;">
+                    @if (Model.Teacher != null && Model.Teacher.User != null)
+                    {
+                        @Html.DisplayFor(model => model.Teacher.User.LastName) @Html.DisplayFor(model => model.Teacher.User.FirstName)
+                    }
+                    else
+                    {
+                        <span style="color: #777; font-style: italic;">Не вказано</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-3" style="font-weight: 500; color: var(--secondary);">
+                    @Html.DisplayNameFor(model => model.DateSet)
+                </dt>
+                <dd class="col-sm-9" style="margin-bottom: 1rem;">
+                    @Model.DateSet.ToString("dd.MM.yyyy HH:mm")
+                </dd>
+
+                <dt class="col-sm-3" style="font-weight: 500; color: var(--secondary);">
+                    Група
+                </dt>
+                <dd class="col-sm-9" style="margin-bottom: 1rem;">
+                    @if (!string.IsNullOrEmpty(Model.Course?.GroupName))
+                    {
+                        <span style="background: #e9ecef; padding: 4px 8px; border-radius: 4px;">
+                            @Html.DisplayFor(model => model.Course.GroupName)
+                        </span>
+                    }
+                    else
+                    {
+                        <span style="color: #777; font-style: italic;">Не вказано</span>
+                    }
+                </dd>
+            </dl>
+        </div>
+
+        <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+            <!-- Варіант 1: З area для всіх посилань -->
+            <a href="/Teacher/Grades/Edit/@Model.Id"
+               class="analyze-btn"
+               style="flex: 1; min-width: 140px; text-align: center; background-color: #FFC107; color: black; border: none; padding: 0.5rem 1rem; text-decoration: none;">
+                ✏️ Редагувати
+            </a>
+
+            <a href="/Teacher/Grades/Delete/@Model.Id"
+               class="analyze-btn"
+               style="flex: 1; min-width: 140px; text-align: center; background-color: #FF6B6B; color: white; border: none; padding: 0.5rem 1rem; text-decoration: none;">
+                🗑️ Видалити
+            </a>
+
+            <a href ="/Teacher/Grades"
+               class="analyze-btn"
+               style="flex: 1; min-width: 140px; text-align: center; background-color: var(--secondary); border: none; padding: 0.5rem 1rem; text-decoration: none;">
+                ← Назад до списку
+            </a>
+        </div>
+    </div>
+
+    <!-- Додаткова інформація про пов'язані дані -->
+    <div class="entity-card" style="margin-top: 1.5rem;">
+        <div class="entity-name">📈 Додаткова інформація</div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+            <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎯</div>
+                <div style="font-weight: bold; color: var(--secondary);">Поточна оцінка</div>
+                <div style="font-size: 1.5rem; color: #28a745;">@Model.Value</div>
+                <div style="font-size: 0.8rem; color: #666;">балів</div>
+            </div>
+
+            <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">📅</div>
+                <div style="font-weight: bold; color: var(--secondary);">Дата оцінювання</div>
+                <div style="font-size: 1rem; color: #17a2b8;">@Model.DateSet.ToString("dd.MM.yyyy")</div>
+                <div style="font-size: 0.8rem; color: #666;">@Model.DateSet.ToString("HH:mm")</div>
+            </div>
+
+            <div style="text-align: center; padding: 1rem; background: #f8f9fa; border-radius: 8px;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">👨‍🏫</div>
+                <div style="font-weight: bold; color: var(--secondary);">Викладач</div>
+                <div style="font-size: 1rem; color: #dc3545;">
+                    @if (Model.Teacher != null && Model.Teacher.User != null)
+                    {
+                        @Model.Teacher.User.LastName
+                    }
+                    else
+                    {
+                        <span>Не вказано</span>
+                    }
+                </div>
+                <div style="font-size: 0.8rem; color: #666;">хто виставив</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

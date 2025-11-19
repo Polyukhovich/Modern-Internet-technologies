@@ -1,0 +1,53 @@
+﻿@model WebApplication1Data.models.Material
+@{
+    ViewData["Title"] = "Деталі матеріалу";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">📖 Деталі матеріалу</h1>
+
+    <div class="input-section">
+        <div class="entity-card" style="max-width: 800px; margin: 0 auto;">
+            <div class="entity-name">@Model.Title</div>
+
+            <div style="margin: 1.5rem 0;">
+                <p style="color: var(--secondary); line-height: 1.6; font-size: 1.1rem;">
+                    @Model.Description
+                </p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+                <div style="background: var(--accent); padding: 1rem; border-radius: 8px;">
+                    <div style="font-weight: 600; color: var(--primary);">👨‍🏫 Автор</div>
+                    <div style="color: var(--secondary);">@Model.UploadedBy?.FirstName @Model.UploadedBy?.LastName</div>
+                </div>
+
+                <div style="background: var(--accent); padding: 1rem; border-radius: 8px;">
+                    <div style="font-weight: 600; color: var(--primary);">📚 Курс</div>
+                    <div style="color: var(--secondary);">@Model.Course?.Title</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <a href="@Model.ContentUrl" target="_blank" class="analyze-btn" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                    📥 Відкрити матеріал
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+        <a href="@Url.Action("Index")" class="analyze-btn" style="background: var(--secondary); text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
+            ← Назад до списку
+        </a>
+
+        @if (User.IsInRole("Teacher"))
+        {
+            <a href="@Url.Action("Edit", new { id = Model.Id })" class="analyze-btn" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
+                ✏️ Редагувати
+            </a>
+        }
+    </div>
+</div>

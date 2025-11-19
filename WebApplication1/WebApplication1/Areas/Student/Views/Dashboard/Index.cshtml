@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Головна панель студента";
+    var student = ViewBag.Student as WebApplication1Data.models.Student;
+    var recentGrades = ViewBag.RecentGrades as List<WebApplication1Data.models.Grade>;
+    var todaySchedule = ViewBag.TodaySchedule as List<WebApplication1Data.models.ScheduleItem>;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">Головна панель студента</h1>
+
+    <div class="input-section">
+        <h2 style="color: var(--secondary); margin-bottom: 1.5rem;">Швидкий огляд</h2>
+
+        <!-- Статистика -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            <div class="entity-card" style="background: linear-gradient(135deg, var(--secondary), var(--primary)); color: white; text-align: center;">
+                <div class="entity-name" style="color: white;">📚 Курси</div>
+                <div style="font-size: 2.5rem; font-weight: bold;">@ViewBag.TotalCourses</div>
+            </div>
+            <div class="entity-card" style="background: linear-gradient(135deg, #5C6B73, #2A2B2E); color: white; text-align: center;">
+                <div class="entity-name" style="color: white;">📊 Оцінки</div>
+                <div style="font-size: 2.5rem; font-weight: bold;">@ViewBag.TotalGrades</div>
+            </div>
+            <div class="entity-card" style="background: linear-gradient(135deg, #C2D3CD, #5C6B73); color: white; text-align: center;">
+                <div class="entity-name" style="color: white;">⭐ Середній бал</div>
+                <div style="font-size: 2.5rem; font-weight: bold;">@ViewBag.AverageGrade</div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <!-- Сьогоднішній розклад -->
+            <div class="entity-card">
+                <div class="entity-name">📅 Сьогоднішній розклад</div>
+                @if (todaySchedule != null && todaySchedule.Count > 0)
+                {
+                    <div style="margin: 1rem 0;">
+                        @foreach (var item in todaySchedule)
+                        {
+                            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--accent);">
+                                <div style="font-weight: 500;">@item.Course?.Title</div>
+                                <div>@item.StartTime.ToString(@"hh\:mm") - @item.EndTime.ToString(@"hh\:mm")</div>
+                                <div style="color: var(--secondary);">@item.Room</div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="no-results">Сьогодні занять немає</div>
+                }
+            </div>
+
+            <!-- Останні оцінки -->
+            <div class="entity-card">
+                <div class="entity-name">📊 Останні оцінки</div>
+                @if (recentGrades != null && recentGrades.Count > 0)
+                {
+                    <div style="margin: 1rem 0;">
+                        @foreach (var grade in recentGrades)
+                        {
+                            <div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid var(--accent);">
+                                <div style="font-weight: 500;">@grade.Course?.Title</div>
+                                <div style="font-size: 1.2rem; font-weight: bold; color: var(--primary);">@grade.Value</div>
+                                <div style="color: var(--secondary); font-size: 0.9rem;">@grade.DateSet.ToString("dd.MM.yyyy")</div>
+                            </div>
+                        }
+                    </div>
+                    <div style="text-align: center; margin-top: 1rem;">
+                        <a href="@Url.Action("Index", "Grades", new { area = "Student" })" class="wiki-link">Переглянути всі оцінки →</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="no-results">Немає оцінок</div>
+                }
+            </div>
+
+            <!-- Швидкі дії -->
+            <div class="entity-card">
+                <div class="entity-name">🚀 Швидкі дії</div>
+                <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+                    <a href="@Url.Action("Index", "Courses", new { area = "Student" })" class="analyze-btn" style="text-decoration: none; display: inline-block; margin: 0;">
+                        📚 Мої курси
+                    </a>
+                    <a href="@Url.Action("Index", "Schedule", new { area = "Student" })" class="analyze-btn" style="text-decoration: none; display: inline-block; margin: 0; background: var(--accent); color: var(--primary);">
+                        📅 Мій розклад
+                    </a>
+                    <a href="@Url.Action("Index", "Grades", new { area = "Student" })" class="analyze-btn" style="text-decoration: none; display: inline-block; margin: 0; background: var(--secondary); color: white;">
+                        📊 Мої оцінки
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

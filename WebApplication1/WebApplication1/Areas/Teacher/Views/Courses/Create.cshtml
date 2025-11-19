@@ -1,0 +1,66 @@
+﻿@model WebApplication1Data.models.Course
+
+@{
+    ViewData["Title"] = "Створити курс";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <h1 class="title">Створити курс</h1>
+ 
+
+    <form asp-area="Teacher" asp-controller="Courses" asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly" class="field-validation-summary"></div>
+
+        <div class="entity-card">
+            <div class="entity-name">📝 Інформація про курс</div>
+
+            <div style="margin:1rem 0;">
+                <div style="margin-bottom:1rem;">
+                    <label asp-for="Title" class="form-label">Назва курсу</label>
+                    <input asp-for="Title" name="Title" id="Title" class="text-input" placeholder="Введіть назву курсу" />
+                    <span asp-validation-for="Title" class="field-validation"></span>
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label asp-for="GroupName" class="entity-name" style="display: block; margin-bottom: 0.5rem;">Група</label>
+                    <select asp-for="GroupName" name="GroupName" id="GroupName" class="text-input" required>
+                        <option value="">Оберіть групу</option>
+                        @if (ViewBag.GroupList != null)
+                        {
+                            foreach (var group in ViewBag.GroupList)
+                            {
+                                <option value="@group.Value">@group.Text</option>
+                            }
+                        }
+                    </select>
+                    <span asp-validation-for="GroupName" style="color: #FF6B6B; font-size: 0.9rem;"></span>
+                </div>
+
+
+
+                <div style="margin-bottom:1rem;">
+                    <label asp-for="Description" class="form-label">Опис курсу</label>
+                    <input asp-for="Description" name="Description" id="Description" class="text-input" placeholder="Введіть опис курсу"></textarea>
+                    <span asp-validation-for="Description" class="field-validation"></span>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:.5rem; margin-top:1rem;">
+                <button type="submit" class="analyze-btn">➕ Створити курс</button>
+                <a href="/Teacher/Courses" class="analyze-btn">← Назад до списку</a>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

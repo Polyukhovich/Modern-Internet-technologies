@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebApplication1Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using WebApplication1Data.Models;
 using WebApplication1Data.models;
-
 
 namespace WebApplication1Data.Data
 {
     public class dbContext : IdentityDbContext<User>
     {
-        public dbContext(DbContextOptions<dbContext> options)
-        : base(options)
+        public dbContext(DbContextOptions<dbContext> options) : base(options)
         {
         }
+
         public DbSet<Student> Students { get; set; } = default!;
         public DbSet<Teacher> Teachers { get; set; } = default!;
         public DbSet<Course> Courses { get; set; } = default!;
@@ -29,13 +22,27 @@ namespace WebApplication1Data.Data
         {
             base.OnModelCreating(builder);
 
-            // Наприклад, щоб уникнути каскадного видалення між Student і Grade
-            builder.Entity<Grade>()
-                .HasOne(g => g.Student)
-                .WithMany(s => s.Grades)
-                .HasForeignKey(g => g.StudentId)
+            // Лише найнеобхідніші індекси для полів, по яких часто шукаємо
+            builder.Entity<ScheduleItem>()
+                .HasIndex(s => s.GroupName);
+
+            builder.Entity<Student>()
+                .HasIndex(s => s.GroupName);
+
+            // Лише конфігурації, де потрібна спеціальна поведінка
+            // Зв'язок Material -> User з колекцією
+            builder.Entity<Material>()
+                .HasOne(m => m.UploadedBy)
+                .WithMany(u => u.UploadedMaterials)
+                .HasForeignKey(m => m.UploadedById)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Специфічні налаштування видалення
+            builder.Entity<Course>()
+                .HasOne(c => c.Teacher)
+                .WithMany(t => t.Courses)
+                .HasForeignKey(c => c.TeacherId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
-
     }
 }
