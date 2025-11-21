@@ -1,0 +1,19 @@
+﻿@model IEnumerable<CultureInfo>
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<h2>@Localizer["lblChangeLanguage"]</h2>
+
+<div>
+    @foreach (var culture in Model)
+    {
+        <form method="post"
+              asp-action="SetLanguage"
+              asp-route-cultureName="@culture.Name"
+              asp-route-returnUrl="@ViewData["ReturnUrl"]">
+
+            <button class="btn btn-link">@culture.DisplayName</button>
+        </form>
+    }
+</div>
