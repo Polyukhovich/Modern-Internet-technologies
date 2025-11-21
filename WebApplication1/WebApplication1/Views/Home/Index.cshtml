@@ -1,4 +1,6 @@
-﻿@{
+﻿﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
     ViewData["Title"] = "Головна";
 }
 
@@ -11,7 +13,20 @@
             Ласкаво просимо до нашої системи управління навчанням
         </p>
     </div>
+    <!-- Блок тестування локалізації -->
+    <div class="localization-test" style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;">
+        <p><strong>Date:</strong> @DateTime.Now.ToLongDateString()</p>
+        <p><strong>Currency:</strong> @(12345.67.ToString("C"))</p>
+        <h4>@ViewBag.LocalizedText</h4>
+        <p>@ViewBag.ChangeLang</p>
 
+        <!-- Кнопки перемикання мов -->
+        <div style="margin-top: 10px;">
+            <a href="/?culture=en-US&ui-culture=en-US" class="btn btn-sm btn-outline-primary" style="margin: 5px;">English</a>
+            <a href="/?culture=uk-UA&ui-culture=uk-UA" class="btn btn-sm btn-outline-primary" style="margin: 5px;">Українська</a>
+            <a href="/?culture=fr-FR&ui-culture=fr-FR" class="btn btn-sm btn-outline-primary" style="margin: 5px;">Français</a>
+        </div>
+    </div>
     @if (ViewBag.Role == "Student")
     {
         <h1 class="title">Головна панель студента</h1>

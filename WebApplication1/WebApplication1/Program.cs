@@ -12,6 +12,23 @@ using WebApplication1.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Завдння 1
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
+// Завдання 4
+var supportedCultures = new[] { "en-US", "uk-UA", "fr-FR" };
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.SetDefaultCulture("en-US")
+           .AddSupportedCultures(supportedCultures)
+           .AddSupportedUICultures(supportedCultures);
+});
+
+// Додати з підтримкою локалізації для View
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization()
+    .AddDataAnnotationsLocalization();
+
 builder.Configuration.Sources.Clear();
 builder.Configuration.AddJsonFile("sharedsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
@@ -119,6 +136,9 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+// Задвання 5
+app.UseRequestLocalization();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

@@ -18,6 +18,14 @@
         },
         "runtime": {
           "WebApplication1.dll": {}
+        },
+        "resources": {
+          "fr-FR/WebApplication1.resources.dll": {
+            "locale": "fr-FR"
+          },
+          "uk-UA/WebApplication1.resources.dll": {
+            "locale": "uk-UA"
+          }
         }
       },
       "Azure.Core/1.47.1": {
