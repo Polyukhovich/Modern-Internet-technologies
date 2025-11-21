@@ -7873,11 +7873,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectUniqueName": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "projectName": "WebApplication1",
-      "projectPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
+      "projectPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1\\WebApplication1.csproj",
       "packagesPath": "C:\\Users\\kingg\\.nuget\\packages\\",
-      "outputPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1\\obj\\",
+      "outputPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -7899,8 +7899,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj": {
-              "projectPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab3\\lab3\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj"
+            "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj": {
+              "projectPath": "D:\\university\\4 курс\\Сучасні інтернет технології\\lab1\\WebApplication1\\WebApplication1Data\\WebApplication1Data.csproj"
             }
           }
         }
